@@ -1,4 +1,21 @@
 {% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
 %}
 <h1 align="center">About</h1>
+<body>
+  <div class="form-container">
+    <form class="left-form">
+      <h2>Form 1</h2>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <form class="right-form">
+      <h2>Form 2</h2>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
 {% endblock %}
