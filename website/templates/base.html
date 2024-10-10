@@ -31,10 +31,27 @@
         <div class="navbar-nav">
           {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="about" href="/about">About</a>
+          <a class="nav-item nav-link" id="set_clock" href="/set-clock"
+            >Set Clock</a
+          >
+          <a
+            class="nav-item nav-link"
+            id="bradycardia_therapy"
+            href="/bradycardia-therapy"
+            >Bradycardia Therapy</a
+          >
+          <a
+            class="nav-item nav-link"
+            id="generate_report"
+            href="/generate-report"
+            >Generate Report</a
+          >
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           {% else %}
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
+
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+          <a class="nav-item nav-link" id="Login" href="/login">Login</a>
           {% endif %}
         </div>
       </div>

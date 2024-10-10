@@ -14,6 +14,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
+        # second email is the one we are comparing
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
@@ -33,6 +34,30 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+
+@auth.route('/about', methods=['GET', 'POST'])
+@login_required
+def about():
+    return render_template("about.html", user=current_user)
+
+
+@auth.route('/bradycardia-therapy', methods=['GET', 'POST'])
+@login_required
+def bradycardia_therapy():
+    return render_template("bradycardia_therapy.html", user=current_user)
+
+
+@auth.route('/set-clock', methods=['GET', 'POST'])
+@login_required
+def set_clock():
+    return render_template("set_clock.html", user=current_user)
+
+
+@auth.route('/generate-report', methods=['GET', 'POST'])
+@login_required
+def generate_report():
+    return render_template("generate_report.html", user=current_user)
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -56,11 +81,10 @@ def sign_up():
             flash('Password must be at least 7 characters.', category='error')
         else:
             new_user = User(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='sha256'))
+                password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
-
     return render_template("sign_up.html", user=current_user)
