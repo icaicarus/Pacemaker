@@ -9,18 +9,29 @@ block content %}
     <title>Parameter Form</title>
   </head>
   <body>
-    <form action="/submit" method="post">
+    <form action="/bradycardia-therapy" method="POST">
       <label for="lrl">Lower Rate Limit (LRL):</label>
-      <input type="number" id="lrl" name="lrl" /><br /><br />
+      <input
+        type="number"
+        id="lrl"
+        name="lrl"
+        value="{{ parameter.lrl if parameter else '' }}"
+      /><br /><br />
 
       <label for="url">Upper Rate Limit (URL):</label>
-      <input type="number" id="url" name="url" /><br /><br />
+      <input
+        type="number"
+        id="url"
+        name="url"
+        value="{{ parameter.url if parameter else '' }}"
+      /><br /><br />
 
       <label for="max_sensor_rate">Max Sensor Rate:</label>
       <input
         type="number"
         id="max_sensor_rate"
         name="max_sensor_rate"
+        value="{{ parameter.max_sensor_rate if parameter else '' }}"
       /><br /><br />
 
       <label for="fixed_av_delay">Fixed AV Delay:</label>
@@ -28,6 +39,7 @@ block content %}
         type="number"
         id="fixed_av_delay"
         name="fixed_av_delay"
+        value="{{ parameter.fixed_av_delay if parameter else '' }}"
       /><br /><br />
 
       <label for="dynamic_av_delay">Dynamic AV Delay:</label>
@@ -35,6 +47,7 @@ block content %}
         type="number"
         id="dynamic_av_delay"
         name="dynamic_av_delay"
+        value="{{ parameter.dynamic_av_delay if parameter else '' }}"
       /><br /><br />
 
       <label for="sensed_av_delay_offset">Sensed AV Delay Offset:</label>
@@ -42,16 +55,23 @@ block content %}
         type="number"
         id="sensed_av_delay_offset"
         name="sensed_av_delay_offset"
+        value="{{ parameter.sensed_av_delay_offset if parameter else '' }}"
       /><br /><br />
 
       <label for="atrial_amp">Atrial Amplitude:</label>
-      <input type="number" id="atrial_amp" name="atrial_amp" /><br /><br />
+      <input
+        type="number"
+        id="atrial_amp"
+        name="atrial_amp"
+        value="{{ parameter.atrial_amp if parameter else '' }}"
+      /><br /><br />
 
       <label for="ventricular_amp">Ventricular Amplitude:</label>
       <input
         type="number"
         id="ventricular_amp"
         name="ventricular_amp"
+        value="{{ parameter.ventricular_amp if parameter else '' }}"
       /><br /><br />
 
       <label for="atrial_pulse_width">Atrial Pulse Width:</label>
@@ -59,6 +79,7 @@ block content %}
         type="number"
         id="atrial_pulse_width"
         name="atrial_pulse_width"
+        value="{{ parameter.atrial_pulse_width if parameter else '' }}"
       /><br /><br />
 
       <label for="ventricular_pulse_width">Ventricular Pulse Width:</label>
@@ -66,6 +87,7 @@ block content %}
         type="number"
         id="ventricular_pulse_width"
         name="ventricular_pulse_width"
+        value="{{ parameter.ventricular_pulse_width if parameter else '' }}"
       /><br /><br />
 
       <label for="atrial_sensitivity">Atrial Sensitivity:</label>
@@ -73,6 +95,7 @@ block content %}
         type="number"
         id="atrial_sensitivity"
         name="atrial_sensitivity"
+        value="{{ parameter.atrial_sensitivity if parameter else '' }}"
       /><br /><br />
 
       <label for="ventricular_sensitivity">Ventricular Sensitivity:</label>
@@ -80,40 +103,73 @@ block content %}
         type="number"
         id="ventricular_sensitivity"
         name="ventricular_sensitivity"
+        value="{{ parameter.ventricular_sensitivity if parameter else '' }}"
       /><br /><br />
 
       <label for="vrp">Ventricular Refractory Period (VRP):</label>
-      <input type="number" id="vrp" name="vrp" /><br /><br />
+      <input
+        type="number"
+        id="vrp"
+        name="vrp"
+        value="{{ parameter.vrp if parameter else '' }}"
+      /><br /><br />
 
       <label for="arp">Atrial Refractory Period (ARP):</label>
-      <input type="number" id="arp" name="arp" /><br /><br />
+      <input
+        type="number"
+        id="arp"
+        name="arp"
+        value="{{ parameter.arp if parameter else '' }}"
+      /><br /><br />
 
       <label for="pvarp"
         >Post Ventricular Atrial Refractory Period (PVARP):</label
       >
-      <input type="number" id="pvarp" name="pvarp" /><br /><br />
+      <input
+        type="number"
+        id="pvarp"
+        name="pvarp"
+        value="{{ parameter.pvarp if parameter else '' }}"
+      /><br /><br />
 
       <label for="pvarp_ext">PVARP Extension:</label>
-      <input type="number" id="pvarp_ext" name="pvarp_ext" /><br /><br />
+      <input
+        type="number"
+        id="pvarp_ext"
+        name="pvarp_ext"
+        value="{{ parameter.pvarp_ext if parameter else '' }}"
+      /><br /><br />
 
       <label for="hysteresis">Hysteresis:</label>
-      <input type="number" id="hysteresis" name="hysteresis" /><br /><br />
+      <input
+        type="number"
+        id="hysteresis"
+        name="hysteresis"
+        value="{{ parameter.hysteresis if parameter else '' }}"
+      /><br /><br />
 
       <label for="rate_smoothing">Rate Smoothing:</label>
       <input
         type="number"
         id="rate_smoothing"
         name="rate_smoothing"
+        value="{{ parameter.rate_smoothing if parameter else '' }}"
       /><br /><br />
 
       <label for="atr_duration">ATR Duration:</label>
-      <input type="number" id="atr_duration" name="atr_duration" /><br /><br />
+      <input
+        type="number"
+        id="atr_duration"
+        name="atr_duration"
+        value="{{ parameter.atr_duration if parameter else '' }}"
+      /><br /><br />
 
       <label for="atr_fallback_mode">ATR Fallback Mode:</label>
       <input
         type="number"
         id="atr_fallback_mode"
         name="atr_fallback_mode"
+        value="{{ parameter.atr_fallback_mode if parameter else '' }}"
       /><br /><br />
 
       <label for="atr_fallback_time">ATR Fallback Time:</label>
@@ -121,6 +177,7 @@ block content %}
         type="number"
         id="atr_fallback_time"
         name="atr_fallback_time"
+        value="{{ parameter.atr_fallback_time if parameter else '' }}"
       /><br /><br />
 
       <label for="activity_threshold">Activity Threshold:</label>
@@ -128,6 +185,7 @@ block content %}
         type="number"
         id="activity_threshold"
         name="activity_threshold"
+        value="{{ parameter.activity_threshold if parameter else '' }}"
       /><br /><br />
 
       <label for="reaction_time">Reaction Time:</label>
@@ -135,6 +193,7 @@ block content %}
         type="number"
         id="reaction_time"
         name="reaction_time"
+        value="{{ parameter.reaction_time if parameter else '' }}"
       /><br /><br />
 
       <label for="response_factor">Response Factor:</label>
@@ -142,6 +201,7 @@ block content %}
         type="number"
         id="response_factor"
         name="response_factor"
+        value="{{ parameter.response_factor if parameter else '' }}"
       /><br /><br />
 
       <label for="recovery_time">Recovery Time:</label>
@@ -149,11 +209,10 @@ block content %}
         type="number"
         id="recovery_time"
         name="recovery_time"
+        value="{{ parameter.recovery_time if parameter else '' }}"
       /><br /><br />
-
       <input type="submit" value="Submit" />
     </form>
+    {% endblock %}
   </body>
 </html>
-
-{% endblock %}

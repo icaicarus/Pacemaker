@@ -1,7 +1,9 @@
 from wsgiref.simple_server import software_version
 from . import db
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
+from flask_migrate import Migrate
 
 
 class Note(db.Model):  # define a new type of object
@@ -51,6 +53,7 @@ class Parameters(db.Model):
     # accelerometer determines the pacing rate that occurs at various levels of steady state patient activity (1 - 16)
     response_factor = db.Column(db.Integer)
     recovery_time = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
 class User(db.Model, UserMixin):  # inherit from Usermixin ONLY for the user object
@@ -60,4 +63,4 @@ class User(db.Model, UserMixin):  # inherit from Usermixin ONLY for the user obj
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')
     device_information = db.relationship('DeviceInformation')
-    # parameters = db.relationship('Parameters')
+    parameters = db.relationship('Parameters')
