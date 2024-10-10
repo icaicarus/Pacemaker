@@ -19,7 +19,7 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
-    from .models import User, Note
+    from .models import User, Note, DeviceInformation
 
     with app.app_context():
         db.create_all()
@@ -30,6 +30,7 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(id):
+        # will check against primary key by default
         return User.query.get(int(id))
 
     return app
