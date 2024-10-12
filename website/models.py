@@ -3,7 +3,6 @@ from . import db
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
-from flask_migrate import Migrate
 
 
 class Note(db.Model):  # define a new type of object

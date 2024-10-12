@@ -4,12 +4,37 @@ block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Parameter Form</title>
   </head>
   <body>
     <form action="/bradycardia-therapy" method="POST">
+      <!-- Drop-down to select the therapy type -->
+      <form action="/bradycardia-therapy" method="POST">
+        <!-- Drop-down to select the therapy type -->
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenu5"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Select the Therapy Type
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
+            <a class="dropdown-item" href="#" data-value="AAT">AAT</a>
+            <a class="dropdown-item" href="#" data-value="VVT">VVT</a>
+            <a class="dropdown-item" href="#" data-value="AOO">AOO</a>
+            <a class="dropdown-item" href="#" data-value="AAI">AAI</a>
+            <a class="dropdown-item" href="#" data-value="VOO">VOO</a>
+            <a class="dropdown-item" href="#" data-value="VVI">VVI</a>
+            <a class="dropdown-item" href="#" data-value="VDD">VDD</a>
+          </div>
+          <!-- Hidden input to hold the selected value -->
+          <input type="hidden" id="therapyType" name="therapy_type" value="">
+        </div>
+        
       <label for="lrl">Lower Rate Limit (LRL):</label>
       <input
         type="number"

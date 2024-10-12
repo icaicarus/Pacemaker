@@ -45,8 +45,11 @@ def about():
 @auth.route('/bradycardia-therapy', methods=['GET', 'POST'])
 @login_required
 def bradycardia_therapy():
+    # Retrieve the current user's parameter record
+    parameter = Parameters.query.filter_by(user_id=current_user.id).first()
+
     if request.method == 'POST':
-        # Retrieving values from the form using request.form.get()
+        # Retrieving values from the form
         lrl = request.form.get('lrl')
         url = request.form.get('url')
         max_sensor_rate = request.form.get('max_sensor_rate')
@@ -73,10 +76,9 @@ def bradycardia_therapy():
         response_factor = request.form.get('response_factor')
         recovery_time = request.form.get('recovery_time')
 
-        # Optionally, you can then update the database with the new values.
-        # Assuming you have a way to access the Parameter record for the current user.
-        parameter = Parameters.query.filter_by(user_id=current_user.id).first()
+        # Update or create parameter record
         if parameter:
+            # Update existing parameters
             parameter.lrl = lrl
             parameter.url = url
             parameter.max_sensor_rate = max_sensor_rate
@@ -102,10 +104,44 @@ def bradycardia_therapy():
             parameter.reaction_time = reaction_time
             parameter.response_factor = response_factor
             parameter.recovery_time = recovery_time
+        else:
+            # Create new parameter record if one doesn't exist
+            new_parameter = Parameters(
+                user_id=current_user.id,
+                lrl=lrl,
+                url=url,
+                max_sensor_rate=max_sensor_rate,
+                fixed_av_delay=fixed_av_delay,
+                dynamic_av_delay=dynamic_av_delay,
+                sensed_av_delay_offset=sensed_av_delay_offset,
+                atrial_amp=atrial_amp,
+                ventricular_amp=ventricular_amp,
+                atrial_pulse_width=atrial_pulse_width,
+                ventricular_pulse_width=ventricular_pulse_width,
+                atrial_sensitivity=atrial_sensitivity,
+                ventricular_sensitivity=ventricular_sensitivity,
+                vrp=vrp,
+                arp=arp,
+                pvarp=pvarp,
+                pvarp_ext=pvarp_ext,
+                hysteresis=hysteresis,
+                rate_smoothing=rate_smoothing,
+                atr_duration=atr_duration,
+                atr_fallback_mode=atr_fallback_mode,
+                atr_fallback_time=atr_fallback_time,
+                activity_threshold=activity_threshold,
+                reaction_time=reaction_time,
+                response_factor=response_factor,
+                recovery_time=recovery_time
+            )
+            db.session.add(new_parameter)
 
-            # Save the updated record to the database
-            db.session.commit()
-    return render_template("bradycardia_therapy.html", user=current_user)
+        # Commit the changes to the database
+        db.session.commit()
+        flash('Parameters updated successfully!', category='success')
+
+    # Pass the parameter object to the template for displaying saved values
+    return render_template("bradycardia_therapy.html", user=current_user, parameter=parameter)
 
 
 @auth.route('/set-clock', methods=['GET', 'POST'])
