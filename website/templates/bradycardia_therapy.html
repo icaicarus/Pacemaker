@@ -323,6 +323,27 @@ block content %}
   </form>
 </body>
 <script>
+  // Get the dropdown button and the hidden input field
+  const dropdownButton = document.getElementById('dropdownMenu5');
+  const hiddenInput = document.getElementById('therapyType');
+
+  // Get all the dropdown items
+  const dropdownItems = document.querySelectorAll('.dropdown-item');
+
+  // Add click event listeners to each dropdown item
+  dropdownItems.forEach(item => {
+    item.addEventListener('click', function () {
+      // Change the button text to the selected therapy type
+      dropdownButton.innerText = this.innerText;
+
+      // Set the value of the hidden input to the selected therapy type
+      hiddenInput.value = this.getAttribute('data-value');
+    });
+  });
+
+
+
+
   // JavaScript to toggle parameter fields based on selected therapy type
   document.querySelectorAll(".dropdown-item").forEach((item) => {
     item.addEventListener("click", function (event) {

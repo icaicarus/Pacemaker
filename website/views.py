@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Flask, Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
-from .models import Note
+from .models import Note, User, DeviceInformation
 from . import db
 import json
+
+# Create the Flask app instance
+app = Flask(__name__)
 
 views = Blueprint('views', __name__)
 
@@ -36,6 +39,7 @@ def delete_note():
             db.session.delete(note)
             db.session.commit()
 
+
 @app.route('/user/<int:user_id>')
 def get_user_data(user_id):
     # Fetch the user by their ID
@@ -49,6 +53,10 @@ def get_user_data(user_id):
 
     # Pass both user and device data to the template
     return render_template('about.html', user=user, device=device)
+
+    # Register your views Blueprint with the Flask app
+    app.register_blueprint(views)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
