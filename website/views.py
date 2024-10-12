@@ -35,3 +35,20 @@ def delete_note():
         if note.user_id == current_user.id:
             db.session.delete(note)
             db.session.commit()
+
+@app.route('/user/<int:user_id>')
+def get_user_data(user_id):
+    # Fetch the user by their ID
+    user = User.query.filter_by(id=user_id).first()
+
+    if not user:
+        return "User not found", 404
+
+    # Fetch the associated device information (if any)
+    device = DeviceInformation.query.filter_by(user_id=user.id).first()
+
+    # Pass both user and device data to the template
+    return render_template('about.html', user=user, device=device)
+
+if __name__ == '__main__':
+    app.run(debug=True)
