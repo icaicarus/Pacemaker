@@ -1,243 +1,351 @@
 {% extends "base.html" %} {% block title %}Bradycardia Therapy{% endblock %} {%
 block content %}
+<br></br>
 <h1 align="center">Bradycardia Therapy</h1>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Parameter Form</title>
-  </head>
-  <body>
-    <form action="/bradycardia-therapy" method="POST">
-      <!-- Drop-down to select the therapy type -->
-      <form action="/bradycardia-therapy" method="POST">
-        <!-- Drop-down to select the therapy type -->
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenu5"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Select the Therapy Type
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
-            <a class="dropdown-item" href="#" data-value="AAT">AAT</a>
-            <a class="dropdown-item" href="#" data-value="VVT">VVT</a>
-            <a class="dropdown-item" href="#" data-value="AOO">AOO</a>
-            <a class="dropdown-item" href="#" data-value="AAI">AAI</a>
-            <a class="dropdown-item" href="#" data-value="VOO">VOO</a>
-            <a class="dropdown-item" href="#" data-value="VVI">VVI</a>
-            <a class="dropdown-item" href="#" data-value="VDD">VDD</a>
-          </div>
-          <!-- Hidden input to hold the selected value -->
-          <input type="hidden" id="therapyType" name="therapy_type" value="">
-        </div>
-        
-      <label for="lrl">Lower Rate Limit (LRL):</label>
-      <input
-        type="number"
-        id="lrl"
-        name="lrl"
-        value="{{ parameter.lrl if parameter else '' }}"
-      /><br /><br />
-
-      <label for="url">Upper Rate Limit (URL):</label>
-      <input
-        type="number"
-        id="url"
-        name="url"
-        value="{{ parameter.url if parameter else '' }}"
-      /><br /><br />
-
-      <label for="max_sensor_rate">Max Sensor Rate:</label>
-      <input
-        type="number"
-        id="max_sensor_rate"
-        name="max_sensor_rate"
-        value="{{ parameter.max_sensor_rate if parameter else '' }}"
-      /><br /><br />
-
-      <label for="fixed_av_delay">Fixed AV Delay:</label>
-      <input
-        type="number"
-        id="fixed_av_delay"
-        name="fixed_av_delay"
-        value="{{ parameter.fixed_av_delay if parameter else '' }}"
-      /><br /><br />
-
-      <label for="dynamic_av_delay">Dynamic AV Delay:</label>
-      <input
-        type="number"
-        id="dynamic_av_delay"
-        name="dynamic_av_delay"
-        value="{{ parameter.dynamic_av_delay if parameter else '' }}"
-      /><br /><br />
-
-      <label for="sensed_av_delay_offset">Sensed AV Delay Offset:</label>
-      <input
-        type="number"
-        id="sensed_av_delay_offset"
-        name="sensed_av_delay_offset"
-        value="{{ parameter.sensed_av_delay_offset if parameter else '' }}"
-      /><br /><br />
-
-      <label for="atrial_amp">Atrial Amplitude:</label>
-      <input
-        type="number"
-        id="atrial_amp"
-        name="atrial_amp"
-        value="{{ parameter.atrial_amp if parameter else '' }}"
-      /><br /><br />
-
-      <label for="ventricular_amp">Ventricular Amplitude:</label>
-      <input
-        type="number"
-        id="ventricular_amp"
-        name="ventricular_amp"
-        value="{{ parameter.ventricular_amp if parameter else '' }}"
-      /><br /><br />
-
-      <label for="atrial_pulse_width">Atrial Pulse Width:</label>
-      <input
-        type="number"
-        id="atrial_pulse_width"
-        name="atrial_pulse_width"
-        value="{{ parameter.atrial_pulse_width if parameter else '' }}"
-      /><br /><br />
-
-      <label for="ventricular_pulse_width">Ventricular Pulse Width:</label>
-      <input
-        type="number"
-        id="ventricular_pulse_width"
-        name="ventricular_pulse_width"
-        value="{{ parameter.ventricular_pulse_width if parameter else '' }}"
-      /><br /><br />
-
-      <label for="atrial_sensitivity">Atrial Sensitivity:</label>
-      <input
-        type="number"
-        id="atrial_sensitivity"
-        name="atrial_sensitivity"
-        value="{{ parameter.atrial_sensitivity if parameter else '' }}"
-      /><br /><br />
-
-      <label for="ventricular_sensitivity">Ventricular Sensitivity:</label>
-      <input
-        type="number"
-        id="ventricular_sensitivity"
-        name="ventricular_sensitivity"
-        value="{{ parameter.ventricular_sensitivity if parameter else '' }}"
-      /><br /><br />
-
-      <label for="vrp">Ventricular Refractory Period (VRP):</label>
-      <input
-        type="number"
-        id="vrp"
-        name="vrp"
-        value="{{ parameter.vrp if parameter else '' }}"
-      /><br /><br />
-
-      <label for="arp">Atrial Refractory Period (ARP):</label>
-      <input
-        type="number"
-        id="arp"
-        name="arp"
-        value="{{ parameter.arp if parameter else '' }}"
-      /><br /><br />
-
-      <label for="pvarp"
-        >Post Ventricular Atrial Refractory Period (PVARP):</label
+<head>
+  <title>Parameter Form</title>
+</head>
+<body>
+  <form action="/bradycardia-therapy" method="POST">
+    <!-- Drop-down to select the therapy type -->
+    <div class="dropdown">
+      <button
+        class="btn btn-secondary dropdown-toggle"
+        type="button"
+        id="dropdownMenu5"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
       >
-      <input
-        type="number"
-        id="pvarp"
-        name="pvarp"
-        value="{{ parameter.pvarp if parameter else '' }}"
-      /><br /><br />
+        Select the Therapy Type
+      </button><br></br>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu5">
+        <a class="dropdown-item" href="#" data-value="AAT">AAT</a>
+        <a class="dropdown-item" href="#" data-value="VVT">VVT</a>
+        <a class="dropdown-item" href="#" data-value="AOO">AOO</a>
+        <a class="dropdown-item" href="#" data-value="AAI">AAI</a>
+        <a class="dropdown-item" href="#" data-value="VOO">VOO</a>
+        <a class="dropdown-item" href="#" data-value="VVI">VVI</a>
+        <a class="dropdown-item" href="#" data-value="VDD">VDD</a>
+        <a class="dropdown-item" href="#" data-value="DOO">DOO</a>
+        <a class="dropdown-item" href="#" data-value="DDI">DDI</a>
+        <a class="dropdown-item" href="#" data-value="DDD">DDD</a>
+        <a class="dropdown-item" href="#" data-value="AOOR">AOOR</a>
+        <a class="dropdown-item" href="#" data-value="AAIR">AAIR</a>
+        <a class="dropdown-item" href="#" data-value="VVIR">VVIR</a>
+        <a class="dropdown-item" href="#" data-value="VDDR">VDDR</a>
+        <a class="dropdown-item" href="#" data-value="DOOR">DOOR</a>
+        <a class="dropdown-item" href="#" data-value="DDIR">DDIR</a>
+        <a class="dropdown-item" href="#" data-value="DDDR">DDDR</a>
+      </div>
+      <!-- Hidden input to hold the selected value -->
+      <input type="hidden" id="therapyType" name="therapy_type" value="" />
+    </div>
 
-      <label for="pvarp_ext">PVARP Extension:</label>
-      <input
-        type="number"
-        id="pvarp_ext"
-        name="pvarp_ext"
-        value="{{ parameter.pvarp_ext if parameter else '' }}"
-      /><br /><br />
+    <!-- Parameter fields, only show relevant fields based on therapy mode -->
+    <div id="parameters">
+      <div
+        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="lrl">Lower Rate Limit (LRL):</label>
+        <input
+          type="number"
+          id="lrl"
+          name="lrl"
+          value="{{ parameter.lrl if parameter else '' }}"
+        />
+      </div>
 
-      <label for="hysteresis">Hysteresis:</label>
-      <input
-        type="number"
-        id="hysteresis"
-        name="hysteresis"
-        value="{{ parameter.hysteresis if parameter else '' }}"
-      /><br /><br />
+      <div
+        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="url">Upper Rate Limit (URL):</label>
+        <input
+          type="number"
+          id="url"
+          name="url"
+          value="{{ parameter.url if parameter else '' }}"
+        />
+      </div>
 
-      <label for="rate_smoothing">Rate Smoothing:</label>
-      <input
-        type="number"
-        id="rate_smoothing"
-        name="rate_smoothing"
-        value="{{ parameter.rate_smoothing if parameter else '' }}"
-      /><br /><br />
+      <div
+        data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="max_sensor_rate">Max Sensor Rate:</label>
+        <input
+          type="number"
+          id="max_sensor_rate"
+          name="max_sensor_rate"
+          value="{{ parameter.max_sensor_rate if parameter else '' }}"
+        />
+      </div>
 
-      <label for="atr_duration">ATR Duration:</label>
-      <input
-        type="number"
-        id="atr_duration"
-        name="atr_duration"
-        value="{{ parameter.atr_duration if parameter else '' }}"
-      /><br /><br />
+      <div
+        data-therapy="VDD DOO DDI DDD VDDR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="fixed_av_delay">Fixed AV Delay:</label>
+        <input
+          type="number"
+          id="fixed_av_delay"
+          name="fixed_av_delay"
+          value="{{ parameter.fixed_av_delay if parameter else '' }}"
+        />
+      </div>
 
-      <label for="atr_fallback_mode">ATR Fallback Mode:</label>
-      <input
-        type="number"
-        id="atr_fallback_mode"
-        name="atr_fallback_mode"
-        value="{{ parameter.atr_fallback_mode if parameter else '' }}"
-      /><br /><br />
+      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
+        <label for="dynamic_av_delay">Dynamic AV Delay:</label>
+        <input
+          type="number"
+          id="dynamic_av_delay"
+          name="dynamic_av_delay"
+          value="{{ parameter.dynamic_av_delay if parameter else '' }}"
+        />
+      </div>
 
-      <label for="atr_fallback_time">ATR Fallback Time:</label>
-      <input
-        type="number"
-        id="atr_fallback_time"
-        name="atr_fallback_time"
-        value="{{ parameter.atr_fallback_time if parameter else '' }}"
-      /><br /><br />
+      <div data-therapy="" class="parameter-field">
+        <div data-therapy="DDD DDDR" class="parameter-field"></div>
+        <label for="sensed_av_delay_offset">Sensed AV Delay Offset:</label>
+        <input
+          type="number"
+          id="sensed_av_delay_offset"
+          name="sensed_av_delay_offset"
+          value="{{ parameter.sensed_av_delay_offset if parameter else '' }}"
+        />
+      </div>
 
-      <label for="activity_threshold">Activity Threshold:</label>
-      <input
-        type="number"
-        id="activity_threshold"
-        name="activity_threshold"
-        value="{{ parameter.activity_threshold if parameter else '' }}"
-      /><br /><br />
+      <div
+        data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="atrial_amp">Atrial Amplitude:</label>
+        <input
+          type="number"
+          id="atrial_amp"
+          name="atrial_amp"
+          value="{{ parameter.atrial_amp if parameter else '' }}"
+        />
+      </div>
 
-      <label for="reaction_time">Reaction Time:</label>
-      <input
-        type="number"
-        id="reaction_time"
-        name="reaction_time"
-        value="{{ parameter.reaction_time if parameter else '' }}"
-      /><br /><br />
+      <div
+        data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="ventricular_amp">Ventricular Amplitude:</label>
+        <input
+          type="number"
+          id="ventricular_amp"
+          name="ventricular_amp"
+          value="{{ parameter.ventricular_amp if parameter else '' }}"
+        />
+      </div>
 
-      <label for="response_factor">Response Factor:</label>
-      <input
-        type="number"
-        id="response_factor"
-        name="response_factor"
-        value="{{ parameter.response_factor if parameter else '' }}"
-      /><br /><br />
+      <div
+        data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR"
+        class="parameter-field"
+      >
+        <label for="atrial_pulse_width">Atrial Pulse Width:</label>
+        <input
+          type="number"
+          id="atrial_pulse_width"
+          name="atrial_pulse_width"
+          value="{{ parameter.atrial_pulse_width if parameter else '' }}"
+        />
+      </div>
 
-      <label for="recovery_time">Recovery Time:</label>
-      <input
-        type="number"
-        id="recovery_time"
-        name="recovery_time"
-        value="{{ parameter.recovery_time if parameter else '' }}"
-      /><br /><br />
-      <input type="submit" value="Submit" />
-    </form>
-    {% endblock %}
-  </body>
-</html>
+      <div data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
+        <label for="ventricular_pulse_width">Ventricular Pulse Width:</label>
+        <input
+          type="number"
+          id="ventricular_pulse_width"
+          name="ventricular_pulse_width"
+          value="{{ parameter.ventricular_pulse_width if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
+        <label for="atrial_sensitivity">Atrial Sensitivity:</label>
+        <input
+          type="number"
+          id="atrial_sensitivity"
+          name="atrial_sensitivity"
+          value="{{ parameter.atrial_sensitivity if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="VVT VVI VDD DDI DDD VVIR VDDR DDIR DDDR" class="parameter-field">
+        <label for="ventricular_sensitivity">Ventricular Sensitivity:</label>
+        <input
+          type="number"
+          id="ventricular_sensitivity"
+          name="ventricular_sensitivity"
+          value="{{ parameter.ventricular_sensitivity if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="VVT VVI VDD DDI DDD VVIR VDDR DDIR DDDR" class="parameter-field">
+        <label for="vrp">Ventricular Refractory Period (VRP):</label>
+        <input
+          type="number"
+          id="vrp"
+          name="vrp"
+          value="{{ parameter.vrp if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
+        <label for="arp">Atrial Refractory Period (ARP):</label>
+        <input
+          type="number"
+          id="arp"
+          name="arp"
+          value="{{ parameter.arp if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
+        <label for="pvarp"
+          >Post Ventricular Atrial Refractory Period (PVARP):</label
+        >
+        <input
+          type="number"
+          id="pvarp"
+          name="pvarp"
+          value="{{ parameter.pvarp if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
+        <label for="pvarp_ext">PVARP Extension:</label>
+        <input
+          type="number"
+          id="pvarp_ext"
+          name="pvarp_ext"
+          value="{{ parameter.pvarp_ext if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AAI VII DDD AAIR VVIR DDDR" class="parameter-field">
+        <label for="hysteresis">Hysteresis:</label>
+        <input
+          type="number"
+          id="hysteresis"
+          name="hysteresis"
+          value="{{ parameter.hysteresis if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AAI VVI VDD DDD AAIR VVIR VDDR DDDR" class="parameter-field">
+        <label for="rate_smoothing">Rate Smoothing:</label>
+        <input
+          type="number"
+          id="rate_smoothing"
+          name="rate_smoothing"
+          value="{{ parameter.rate_smoothing if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
+        <label for="atr_duration">ATR Duration:</label>
+        <input
+          type="number"
+          id="atr_duration"
+          name="atr_duration"
+          value="{{ parameter.atr_duration if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
+        <label for="atr_fallback_mode">ATR Fallback Mode:</label>
+        <input
+          type="number"
+          id="atr_fallback_mode"
+          name="atr_fallback_mode"
+          value="{{ parameter.atr_fallback_mode if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
+        <label for="atr_fallback_time">ATR Fallback Time:</label>
+        <input
+          type="number"
+          id="atr_fallback_time"
+          name="atr_fallback_time"
+          value="{{ parameter.atr_fallback_time if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
+        <label for="activity_threshold">Activity Threshold:</label>
+        <input
+          type="number"
+          id="activity_threshold"
+          name="activity_threshold"
+          value="{{ parameter.activity_threshold if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
+        <label for="reaction_time">Reaction Time:</label>
+        <input
+          type="number"
+          id="reaction_time"
+          name="reaction_time"
+          value="{{ parameter.reaction_time if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy= "AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"class="parameter-field">
+        <label for="response_factor">Response Factor:</label>
+        <input
+          type="number"
+          id="response_factor"
+          name="response_factor"
+          value="{{ parameter.response_factor if parameter else '' }}"
+        />
+      </div>
+
+      <div data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
+        <label for="recovery_time">Recovery Time:</label>
+        <input
+          type="number"
+          id="recovery_time"
+          name="recovery_time"
+          value="{{ parameter.recovery_time if parameter else '' }}"
+        />
+      </div>
+    </div>
+    <br></br>
+    <input type="submit" value="Submit" />
+  </form>
+</body>
+<script>
+  // JavaScript to toggle parameter fields based on selected therapy type
+  document.querySelectorAll(".dropdown-item").forEach((item) => {
+    item.addEventListener("click", function (event) {
+      event.preventDefault();
+      const selectedTherapy = this.getAttribute("data-value");
+      document.getElementById("therapyType").value = selectedTherapy;
+
+      // Show/Hide fields based on selected therapy type
+      document.querySelectorAll(".parameter-field").forEach((field) => {
+        const therapies = field.getAttribute("data-therapy").split(" ");
+        if (therapies.includes(selectedTherapy)) {
+          field.style.display = "block";
+        } else {
+          field.style.display = "none";
+        }
+      });
+    });
+  });
+
+  // Initially hide all parameter fields
+  document.querySelectorAll(".parameter-field").forEach((field) => {
+    field.style.display = "none";
+  });
+</script>
+
+{% endblock %}
