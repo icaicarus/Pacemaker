@@ -1,4 +1,23 @@
 {% extends "base.html" %} {% block title %}Set Clock{% endblock %} {% block
 content %}
 <h1 align="center">Set Clock</h1>
+<div class="about-page">
+    
+    <div class="clock">
+      <!-- Left Column: Personal and Patient Information -->
+        <label for="date">Current Date:</label>
+        <input type="text" id="date" name="date" placeholder="Date" value=""><br><br>
+  
+        <label for="time">Current Time:</label>
+        <input type="time" id="time" name="time" placeholder="Current Time" value="{Time}"><br><br><br><br>
+  
+        <label for="select-date">Select Date:</label>
+        <input type="date" id="select-date" name="select" placeholder="Select Date"><br><br>
+        
+        <label for="time">Select Time:</label>
+        <input type="time" id="time" name="time" placeholder="Current Time"><br><br><br><br>
+  
+        <button class="view-medical-history-btn">Update Changes</button><br><br>
+      </div>
+    </div>
 {% endblock %}
