@@ -73,7 +73,23 @@
                 font-size: 28px; /* Smaller title for mobile */
             }
         }
+
+        /* Hide the additional report type dropdown by default */
+        .bradycardia-report-options {
+            display: none;
+        }
     </style>
+    <script>
+        function toggleBradycardiaOptions() {
+            const reportType = document.getElementById('report-type').value;
+            const bradycardiaOptions = document.querySelector('.bradycardia-report-options');
+            if (reportType === 'bradycardia_diagnostic') {
+                bradycardiaOptions.style.display = 'block';
+            } else {
+                bradycardiaOptions.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="report-page">
@@ -81,10 +97,8 @@
         
         <form method="POST" class="report-form">
             <label for="report-type">Select Report Type:</label>
-            <select id="report-type" name="report_type" required>
+            <select id="report-type" name="report_type" required onchange="toggleBradycardiaOptions()">
                 <option value="" disabled selected>Select a report type</option>
-                
-                <!-- Parameter and Status Reports -->
                 <option value="bradycardia_parameters">Bradycardia Parameters Report</option>
                 <option value="temporary_parameters">Temporary Parameters Report</option>
                 <option value="implant_data">Implant Data Report</option>
@@ -92,12 +106,18 @@
                 <option value="measured_data">Measured Data Report</option>
                 <option value="marker_legend">Marker Legend Report</option>
                 <option value="session_net_change">Session Net Change Report</option>
-                <option value="final_report">Final Report (Measured Data, Threshold Test, Trending, Histograms, Implant Data, and Net Change)</option>
-                
-                <!-- Bradycardia Diagnostic Reports -->
-                <option value="rate_histogram">Rate Histogram Report</option>
-                <option value="trending">Trending Report</option>
+                <option value="final_report">Final Report</option>
+                <option value="bradycardia_diagnostic">Bradycardia Diagnostic Report</option>
             </select>
+
+            <div class="bradycardia-report-options">
+                <label for="bradycardia-report-type">Select Bradycardia Diagnostic Report Type:</label>
+                <select id="bradycardia-report-type" name="bradycardia_report_type" required>
+                    <option value="" disabled selected>Select a bradycardia diagnostic report type</option>
+                    <option value="rate_histogram">Rate Histogram Report</option>
+                    <option value="trending">Trending Report</option>
+                </select>
+            </div>
             
             <label for="date-range">Select Date Range:</label>
             <input type="date" id="start-date" name="start_date" required>
