@@ -83,9 +83,20 @@
             <label for="report-type">Select Report Type:</label>
             <select id="report-type" name="report_type" required>
                 <option value="" disabled selected>Select a report type</option>
-                <option value="type1">Report Type 1</option>
-                <option value="type2">Report Type 2</option>
-                <option value="type3">Report Type 3</option>
+                
+                <!-- Parameter and Status Reports -->
+                <option value="bradycardia_parameters">Bradycardia Parameters Report</option>
+                <option value="temporary_parameters">Temporary Parameters Report</option>
+                <option value="implant_data">Implant Data Report</option>
+                <option value="threshold_test_results">Threshold Test Results Report</option>
+                <option value="measured_data">Measured Data Report</option>
+                <option value="marker_legend">Marker Legend Report</option>
+                <option value="session_net_change">Session Net Change Report</option>
+                <option value="final_report">Final Report (Measured Data, Threshold Test, Trending, Histograms, Implant Data, and Net Change)</option>
+                
+                <!-- Bradycardia Diagnostic Reports -->
+                <option value="rate_histogram">Rate Histogram Report</option>
+                <option value="trending">Trending Report</option>
             </select>
             
             <label for="date-range">Select Date Range:</label>

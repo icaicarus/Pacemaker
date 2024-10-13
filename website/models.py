@@ -65,6 +65,7 @@ class User(db.Model, UserMixin):  # inherit from Usermixin ONLY for the user obj
     notes = db.relationship('Note')
     device_information = db.relationship('DeviceInformation')
     parameters = db.relationship('Parameters')
+   # language = db.Column(db.String(50))
 
 class EgramData(db.Model):
     __tablename__ = 'egram_data'
@@ -84,3 +85,19 @@ class PacemakerStatus(db.Model):
 
     def __init__(self, status):
         self.status = status
+
+class Report(db.Model):  # Define a new type of object for reports
+    __tablename__ = 'reports'  # Table name in the database
+
+    id = db.Column(db.Integer, primary_key=True)  # Unique identifier for each report
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign key to associate report with user
+    report_type = db.Column(db.String(50), nullable=False)  # Type of report (e.g., Bradycardia Parameters)
+    start_date = db.Column(db.Date, nullable=False)  # Start date for the report
+    end_date = db.Column(db.Date, nullable=False)  # End date for the report
+    created_at = db.Column(db.DateTime, default=func.now())  # Timestamp of report creation
+    data = db.Column(db.JSON, nullable=True)  #to store report data in JSON format
+
+    user = db.relationship('User', backref='reports')  # Define a relationship with User
+
+    def __repr__(self):
+        return f'<Report {self.id}, Type: {self.report_type}, User: {self.user_id}>'
