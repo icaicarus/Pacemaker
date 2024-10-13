@@ -1,22 +1,123 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
-<br></br>
-<h1 align="center">Notes</h1>
-<ul class="list-group list-group-flush" id="notes">
-  {% for note in user.notes %}
-  <li class="list-group-item">
-    {{ note.data }}
-    <button type="button" class="close" onClick="deleteNote('{{note.id}}')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </li>
-  {% endfor %}
-</ul>
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacemaker Device Controller</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Lato:wght@400&display=swap');
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(135deg, #f9f9f9 0%, #ffebeb 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: transparent; /* Make background transparent */
+            color: #990000; /* Title color */
+            padding: 20px; /* Keep padding for spacing */
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow for depth */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            min-height: 80vh;
+        }
+
+        .card {
+            background-color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card h1 {
+            color: #990000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .status-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff7f7;
+            border: 2px solid #990000;
+            border-radius: 8px;
+        }
+
+        .status-section p {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .status-indicator {
+            color: green;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+
+        .footer a {
+            color: #990000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Pacemaker Device Controller Manager</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+          <h1>Welcome, {{ user_name if user_name else user.first_name }}!</h1>
+            <p>Monitor and manage your pacemaker device settings seamlessly.</p>
+
+            <div class="status-section">
+                <p>Connection Status: <span class="status-indicator">Connected</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Pacemaker Project | <a href="#">Privacy Policy</a></p>
+    </div>
+
+</body>
+</html>
+
+
 {% endblock %}

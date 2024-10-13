@@ -66,7 +66,7 @@
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    Select Patient
+                    {{ user.first_name }}'s Patients <!-- Updated header -->
                   </a>
                   <div class="dropdown-menu" aria-labelledby="patientsDropdown">
                     <!-- Dynamically list patients here -->
@@ -79,24 +79,11 @@
       
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="about" href="/about">About</a>
-          <a class="nav-item nav-link" id="set_clock" href="/set-clock"
-            >Set Clock</a
-          >
-          <a
-            class="nav-item nav-link"
-            id="bradycardia_therapy"
-            href="/bradycardia-therapy"
-            >Bradycardia Therapy</a
-          >
-          <a
-            class="nav-item nav-link"
-            id="generate_report"
-            href="/generate-report"
-            >Generate Report</a
-          >
+          <a class="nav-item nav-link" id="set_clock" href="/set-clock">Set Clock</a>
+          <a class="nav-item nav-link" id="bradycardia_therapy" href="/bradycardia-therapy">Bradycardia Therapy</a>
+          <a class="nav-item nav-link" id="generate_report" href="/generate-report">Generate Report</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
           {% else %}
-
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
           <a class="nav-item nav-link" id="Login" href="/login">Login</a>
           {% endif %}
@@ -104,23 +91,27 @@
       </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %} {% if category ==
-    "error" %}
-    <div class="alert alert-danger alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% else %}
-    <div class="alert alert-success alter-dismissable fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} 
+      {% for category, message in messages %} 
+        {% if category == "error" %}
+          <div class="alert alert-danger alter-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% else %}
+          <div class="alert alert-success alter-dismissable fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        {% endif %} 
+      {% endfor %} 
+    {% endif %} 
+    {% endwith %}
 
     <div class="container">{% block content %} {% endblock %}</div>
 

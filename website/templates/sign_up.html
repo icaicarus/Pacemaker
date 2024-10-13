@@ -1,7 +1,9 @@
-{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
 <form method="POST">
   <h3 align="center">Sign Up</h3>
+  
   <div class="form-group">
     <label for="email">Email Address</label>
     <input
@@ -12,6 +14,7 @@ content %}
       placeholder="Enter email"
     />
   </div>
+  
   <div class="form-group">
     <label for="firstName">First Name</label>
     <input
@@ -22,6 +25,7 @@ content %}
       placeholder="Enter first name"
     />
   </div>
+  
   <div class="form-group">
     <label for="password1">Password</label>
     <input
@@ -32,6 +36,7 @@ content %}
       placeholder="Enter password"
     />
   </div>
+  
   <div class="form-group">
     <label for="password2">Password (Confirm)</label>
     <input
@@ -42,6 +47,22 @@ content %}
       placeholder="Confirm password"
     />
   </div>
+
+  <!-- Language Selection Dropdown -->
+  <div class="form-group">
+    <label for="language">Select Language</label>
+    <select id="language" class="form-control" name="language">
+      <option value="en">English</option>
+      <option value="fr">French</option>
+      <option value="de">German</option>
+      <option value="es">Spanish</option>
+      <option value="it">Italian</option>
+      <option value="sv">Swedish</option>
+      <option value="da">Danish</option>
+      <option value="nl">Dutch</option>
+    </select>
+  </div>
+
   <br />
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

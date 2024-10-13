@@ -10,7 +10,6 @@ app = Flask(__name__)
 
 views = Blueprint('views', __name__)
 
-
 @views.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
@@ -66,5 +65,6 @@ def set_clock():
 
     # Render the HTML template with the current date and time
     return render_template('set_clock.html', current_date=current_date, current_time=current_time)
+
 if __name__ == '__main__':
     app.run(debug=True)
