@@ -55,6 +55,28 @@
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
           {% if user.is_authenticated %}
+                 <!-- Dropdown for selecting different patients (First item in the navbar) -->
+                 <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    id="patientsDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Select Patient
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="patientsDropdown">
+                    <!-- Dynamically list patients here -->
+                    <a class="dropdown-item" href="/patient/1">Patient 1</a>
+                    <a class="dropdown-item" href="/patient/2">Patient 2</a>
+                    <a class="dropdown-item" href="/patient/3">Patient 3</a>
+                    <!-- Add more patients as needed -->
+                  </div>
+                </li>
+      
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="about" href="/about">About</a>
           <a class="nav-item nav-link" id="set_clock" href="/set-clock"
