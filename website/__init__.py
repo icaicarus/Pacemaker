@@ -8,7 +8,6 @@ db = SQLAlchemy()
 DB_NAME = "database.db"
 migrate = Migrate()
 
-
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'

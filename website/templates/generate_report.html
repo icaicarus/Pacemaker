@@ -1,7 +1,100 @@
-{% extends "base.html" %} {% block title %}Login{% endblock %} {% block content
-%}
-<form method="POST">
-  <br></br>
-  <h1 align="center">Generate Report</h1>
-  {% endblock %}
-</form>
+{% extends "base.html" %}
+
+{% block title %}Generate Report{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .report-page {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;  /* Center the title and form */
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #c42727;  /* Red underline */
+            padding-bottom: 10px;
+        }
+
+        .report-form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: inline-block;  /* Center form block */
+            width: 100%;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin: 15px 0 5px;
+            color: #333;
+        }
+
+        select, input[type="date"] {
+            width: calc(100% - 20px);  /* Full width with padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-button {
+            background-color: #c42727;  /* Red button */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;  /* Full width button */
+            transition: background-color 0.3s;
+        }
+
+        .submit-button:hover {
+            background-color: #a92222;  /* Darker red on hover */
+        }
+
+        @media (max-width: 768px) {
+            .report-page {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 28px; /* Smaller title for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-page">
+        <h1>Generate Report</h1>
+        
+        <form method="POST" class="report-form">
+            <label for="report-type">Select Report Type:</label>
+            <select id="report-type" name="report_type" required>
+                <option value="" disabled selected>Select a report type</option>
+                <option value="type1">Report Type 1</option>
+                <option value="type2">Report Type 2</option>
+                <option value="type3">Report Type 3</option>
+            </select>
+            
+            <label for="date-range">Select Date Range:</label>
+            <input type="date" id="start-date" name="start_date" required>
+            <input type="date" id="end-date" name="end_date" required>
+            
+            <button type="submit" class="submit-button">Generate Report</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

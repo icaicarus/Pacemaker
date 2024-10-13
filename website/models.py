@@ -3,7 +3,9 @@ from . import db
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
-
+from datetime import datetime
+from sqlalchemy import Column, Integer, Float, DateTime, String, func
+from . import db
 
 class Note(db.Model):  # define a new type of object
     id = db.Column(db.Integer, primary_key=True)
@@ -63,3 +65,15 @@ class User(db.Model, UserMixin):  # inherit from Usermixin ONLY for the user obj
     notes = db.relationship('Note')
     device_information = db.relationship('DeviceInformation')
     parameters = db.relationship('Parameters')
+
+class EgramData(db.Model):
+    __tablename__ = 'egram_data'
+
+    id = Column(Integer, primary_key=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    signal_value = Column(Float, nullable=False)
+    event_marker = Column(String(50), nullable=True)  # Event markers: AS, AP, VS, VP
+
+    def __init__(self, signal_value, event_marker=None):
+        self.signal_value = signal_value
+        self.event_marker = event_marker

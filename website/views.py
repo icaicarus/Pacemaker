@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from datetime import datetime
-from .models import Note, User, DeviceInformation
+from .models import Note, User, DeviceInformation, EgramData
 from . import db
 import json
 
@@ -26,7 +26,6 @@ def home():
             flash('Note added!', category='success')
 
     return render_template("home.html", user=current_user)
-
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
@@ -65,6 +64,18 @@ def set_clock():
 
     # Render the HTML template with the current date and time
     return render_template('set_clock.html', current_date=current_date, current_time=current_time)
+
+@views.route('/view_egram', methods=['GET'])
+@login_required  # This ensures that the user is logged in
+def view_egram():
+    # Sample static data for demonstration
+    egram_data = [
+        {'timestamp': '2024-10-13 10:00:00', 'signal_value': 1.5, 'event_marker': 'AS'},
+        {'timestamp': '2024-10-13 10:01:00', 'signal_value': 2.3, 'event_marker': 'AP'},
+        {'timestamp': '2024-10-13 10:02:00', 'signal_value': 1.8, 'event_marker': 'VS'},
+        {'timestamp': '2024-10-13 10:03:00', 'signal_value': 2.0, 'event_marker': 'VP'}
+    ]
+    return render_template('view_egram_data.html', egram_data=egram_data, user=current_user)
 
 if __name__ == '__main__':
     app.run(debug=True)
