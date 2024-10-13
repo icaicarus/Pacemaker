@@ -77,3 +77,10 @@ class EgramData(db.Model):
     def __init__(self, signal_value, event_marker=None):
         self.signal_value = signal_value
         self.event_marker = event_marker
+
+class PacemakerStatus(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String(50), nullable=False)
+
+    def __init__(self, status):
+        self.status = status

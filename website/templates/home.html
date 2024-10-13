@@ -77,10 +77,18 @@
             font-size: 18px;
         }
 
-        .status-indicator {
-            color: green;
-            font-weight: bold;
+        .status-indicator.connected {
+        color: green;
         }
+        .status-indicator.out-of-range {
+            color: red;
+        }
+        .status-indicator.noise {
+            color: orange;
+        }
+        .status-indicator.another-device {
+            color: blue;
+        }   
 
         .footer {
             text-align: center;
@@ -107,7 +115,11 @@
             <p>Monitor and manage your pacemaker device settings seamlessly.</p>
 
             <div class="status-section">
-                <p>Connection Status: <span class="status-indicator">Connected</span></p>
+                <p>Connection Status: 
+                    <span class="status-indicator {{ pacemaker_status_class }}">
+                        {{ pacemaker_status }}
+                    </span>
+                </p>
             </div>
         </div>
     </div>

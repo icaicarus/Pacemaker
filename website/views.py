@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
 from datetime import datetime
-from .models import Note, User, DeviceInformation, EgramData
+from .models import Note, User, DeviceInformation, EgramData, PacemakerStatus
 from . import db
 import json
 
@@ -10,37 +10,32 @@ app = Flask(__name__)
 
 views = Blueprint('views', __name__)
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/', methods=['GET'])
 @login_required
 def home():
-    if request.method == 'POST':
-        note = request.form.get('note')  # Gets the note from the HTML
+    # Fetch the latest status from the database
+    latest_status = PacemakerStatus.query.order_by(PacemakerStatus.id.desc()).first()
+    current_status = latest_status.status if latest_status else "Out of Range"
 
-        if len(note) < 1:
-            flash('Note is too short!', category='error')
-        else:
-            # providing the schema for the note
-            new_note = Note(data=note, user_id=current_user.id)
-            db.session.add(new_note)  # adding the note to the database
-            db.session.commit()
-            flash('Note added!', category='success')
+    # Map the status to a corresponding CSS class for styling
+    status_class = {
+        "Connected": "connected",
+        "Out of Range": "out-of-range",
+        "Noise": "noise",
+        "Another Device Detected": "another-device"
+    }.get(current_status, "out-of-range")  # Default to 'out-of-range' if unknown
 
-    return render_template("home.html", user=current_user)
+    # Render the template with user and pacemaker status
+    return render_template(
+        "home.html",
+        user=current_user,  # Pass the current user object
+        pacemaker_status=current_status,
+        pacemaker_status_class=status_class
+    )
 
-@views.route('/delete-note', methods=['POST'])
-def delete_note():
-    # this function expects a JSON from the INDEX.js file
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-
-
-@app.route('/user/<int:user_id>')
+@views.route('/user/<int:user_id>')
 def get_user_data(user_id):
+    # Function implementation here
     # Fetch the user by their ID
     user = User.query.filter_by(id=user_id).first()
 
@@ -76,6 +71,19 @@ def view_egram():
         {'timestamp': '2024-10-13 10:03:00', 'signal_value': 2.0, 'event_marker': 'VP'}
     ]
     return render_template('view_egram_data.html', egram_data=egram_data, user=current_user)
+
+@views.route('/update_status/<new_status>')
+def update_status(new_status):
+    # Validate the new status
+    if new_status not in ["Connected", "Out of Range", "Noise", "Another Device Detected"]:
+        return "Invalid status", 400
+
+    # Create a new PacemakerStatus entry in the database
+    new_entry = PacemakerStatus(status=new_status)
+    db.session.add(new_entry)
+    db.session.commit()
+
+    return f"Status updated to {new_status}", 200
 
 if __name__ == '__main__':
     app.run(debug=True)
