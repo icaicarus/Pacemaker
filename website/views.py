@@ -1,5 +1,6 @@
 from flask import Flask, Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user
+from datetime import datetime
 from .models import Note, User, DeviceInformation
 from . import db
 import json
@@ -57,6 +58,13 @@ def get_user_data(user_id):
     # Register your views Blueprint with the Flask app
     app.register_blueprint(views)
 
+@app.route('/set_clock', methods=['GET'])
+def set_clock():
+    # Get the current date and time
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_time = datetime.now().strftime('%H:%M:%S')
 
+    # Render the HTML template with the current date and time
+    return render_template('set_clock.html', current_date=current_date, current_time=current_time)
 if __name__ == '__main__':
     app.run(debug=True)

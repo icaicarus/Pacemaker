@@ -1,23 +1,173 @@
-{% extends "base.html" %} {% block title %}Set Clock{% endblock %} {% block
-content %}
-<h1 align="center">Set Clock</h1>
-<div class="about-page">
-    
-    <div class="clock">
-      <!-- Left Column: Personal and Patient Information -->
-        <label for="date">Current Date:</label>
-        <input type="text" id="date" name="date" placeholder="Date" value=""><br><br>
-  
-        <label for="time">Current Time:</label>
-        <input type="time" id="time" name="time" placeholder="Current Time" value="{Time}"><br><br><br><br>
-  
-        <label for="select-date">Select Date:</label>
-        <input type="date" id="select-date" name="select" placeholder="Select Date"><br><br>
-        
-        <label for="time">Select Time:</label>
-        <input type="time" id="time" name="time" placeholder="Current Time"><br><br><br><br>
-  
-        <button class="view-medical-history-btn">Update Changes</button><br><br>
-      </div>
+{% extends "base.html" %}
+{% block title %}Set Clock{% endblock %}
+{% block content %}
+
+<div class="page-header">
+  <h1>Set Clock</h1>
+  <hr class="header-line">
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Clock</title>
+    <style>
+        /* Main container to hold both sections */
+        .main-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Left section styling */
+        .left-section {
+            width: 60%;
+        }
+
+        /* Right section styling */
+        .right-section {
+            width: 30%;
+            border-left: 2px solid #ccc;
+            padding-left: 20px;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Styling for the Apply Changes button */
+        .apply-button {
+            background-color: #c0392b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .apply-button:hover {
+            background-color: #e74c3c;
+        }
+
+        /* Header styling */
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Page header styling similar to the About section */
+        .page-header {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header-line {
+            width: 80%;
+            height: 3px;
+            background-color: #c42727;
+            margin: 10px auto;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <div class="header">Set Clock</div>
+            <form method="POST" action="/set_clock">
+                <div class="form-group">
+                    <label for="current_date">Current Date:</label>
+                    <input type="text" id="current_date" name="current_date" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="current_time">Current Time:</label>
+                    <input type="text" id="current_time" name="current_time" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="select_date">Select Date:</label>
+                    <input type="date" id="select_date" name="select_date">
+                </div>
+                <div class="form-group">
+                    <label for="select_time">Select Time:</label>
+                    <input type="time" id="select_time" name="select_time">
+                </div>
+            </form>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <form method="POST" action="/set_clock">
+                <div class="form-group">
+                    <label for="timezone">Change Timezone:</label>
+                    <select id="timezone" name="timezone">
+                        <option value="US/Atlantic">AST</option>
+                        <option value="US/Eastern">EST</option>
+                        <option value="US/Central">CST</option>
+                        <option value="US/Pacific">PST</option>
+                        <option value="UTC">UTC</option>
+                        <option value="GMT">GMT</option>
+                        <option value="Europe/London">BST</option>
+                        <option value="Australia/Sydney">AEST</option>
+                        <option value="CET">CET</option>
+                    </select>
+                </div>
+                <button type="submit" class="apply-button">Apply Changes</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        // Function to update the current date and time
+        function updateCurrentDateTime() {
+            const currentDateInput = document.getElementById('current_date');
+            const currentTimeInput = document.getElementById('current_time');
+
+            const now = new Date();
+
+            // Get the local date components
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so we add 1
+            const day = String(now.getDate()).padStart(2, '0'); // Ensure two-digit day
+
+            // Format the date as yyyy-mm-dd
+            const formattedDate = `${year}-${month}-${day}`;
+
+            // Format the time as HH:MM in the local time zone
+            const formattedTime = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+            // Set the values in the input fields
+            currentDateInput.value = formattedDate;
+            currentTimeInput.value = formattedTime;
+        }
+
+        // Call the function to set the date and time when the page loads
+        window.onload = updateCurrentDateTime;
+    </script>
+</body>
+</html>
+
+
 {% endblock %}
