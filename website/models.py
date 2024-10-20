@@ -67,22 +67,30 @@ class User(db.Model, UserMixin):  # inherit from Usermixin ONLY for the user obj
     parameters = db.relationship('Parameters')
    # language = db.Column(db.String(50))
 
+# Model representing electrogram (Egram) data
 class EgramData(db.Model):
-    __tablename__ = 'egram_data'
-
+    __tablename__ = 'egram_data'  # Name of the database table
+    # Primary key for the table, an auto-incrementing integer
     id = Column(Integer, primary_key=True)
+    # Timestamp of the data entry, defaults to current time
     timestamp = Column(DateTime, default=datetime.utcnow)
+    # Signal value associated with the Egram
     signal_value = Column(Float, nullable=False)
+    #event marker that indicates the type of event
     event_marker = Column(String(50), nullable=True)  # Event markers: AS, AP, VS, VP
 
+    # Constructor for initializing an EgramData object
     def __init__(self, signal_value, event_marker=None):
         self.signal_value = signal_value
         self.event_marker = event_marker
 
+# Model representing the status of a pacemaker
 class PacemakerStatus(db.Model):
+    # Primary key for the table, an auto-incrementing integer
     id = db.Column(db.Integer, primary_key=True)
+    # Status of the pacemaker
     status = db.Column(db.String(50), nullable=False)
-
+    # Constructor for initializing a PacemakerStatus object
     def __init__(self, status):
         self.status = status
 
