@@ -13,14 +13,14 @@
             padding: 20px;
             width: 90%;
             max-width: 800px;
-            text-align: center;  /* Center the title and form */
+            text-align: center;  
         }
 
         h1 {
             font-size: 36px;
             color: #333;
             margin-bottom: 20px;
-            border-bottom: 4px solid #c42727;  /* Red underline */
+            border-bottom: 4px solid #c42727;  
             padding-bottom: 10px;
         }
 
@@ -29,7 +29,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: inline-block;  /* Center form block */
+            display: inline-block;  
             width: 100%;
         }
 
@@ -41,7 +41,7 @@
         }
 
         select, input[type="date"] {
-            width: calc(100% - 20px);  /* Full width with padding */
+            width: calc(100% - 20px); 
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -49,29 +49,19 @@
         }
 
         .submit-button {
-            background-color: #c42727;  /* Red button */
+            background-color: #c42727; 
             color: white;
             border: none;
             padding: 12px 20px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%;  /* Full width button */
+            width: 100%;  
             transition: background-color 0.3s;
         }
 
         .submit-button:hover {
-            background-color: #a92222;  /* Darker red on hover */
-        }
-
-        @media (max-width: 768px) {
-            .report-page {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 28px; /* Smaller title for mobile */
-            }
+            background-color: #a92222; 
         }
 
         /* Hide the additional report type dropdown by default */
@@ -92,10 +82,13 @@
     </script>
 </head>
 <body>
+    <!-- Main container for the report generation page -->
     <div class="report-page">
         <h1>Generate Report</h1>
-        
+
+        <!-- Form for selecting report parameters and generating the report -->
         <form method="POST" class="report-form">
+            <!-- Dropdown for selecting the type of report to generate -->
             <label for="report-type">Select Report Type:</label>
             <select id="report-type" name="report_type" required onchange="toggleBradycardiaOptions()">
                 <option value="" disabled selected>Select a report type</option>
@@ -110,6 +103,7 @@
                 <option value="bradycardia_diagnostic">Bradycardia Diagnostic Report</option>
             </select>
 
+            <!-- Additional options for selecting a bradycardia diagnostic report type -->
             <div class="bradycardia-report-options">
                 <label for="bradycardia-report-type">Select Bradycardia Diagnostic Report Type:</label>
                 <select id="bradycardia-report-type" name="bradycardia_report_type" required>
@@ -118,11 +112,13 @@
                     <option value="trending">Trending Report</option>
                 </select>
             </div>
-            
+
+            <!-- Date range selection for the report -->
             <label for="date-range">Select Date Range:</label>
             <input type="date" id="start-date" name="start_date" required>
             <input type="date" id="end-date" name="end_date" required>
-            
+
+            <!-- Button to submit the form and generate the report -->
             <button type="submit" class="submit-button">Generate Report</button>
         </form>
     </div>

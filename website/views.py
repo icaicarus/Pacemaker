@@ -63,14 +63,19 @@ def set_clock():
 @views.route('/view_egram', methods=['GET'])
 @login_required  # This ensures that the user is logged in
 def view_egram():
+     # Get the current date and time using the helper function
+    current_date = datetime.now().strftime('%Y-%m-%d')
+    current_time = datetime.now().strftime('%H:%M:%S')
     # Sample static data for demonstration
     egram_data = [
-        {'timestamp': '2024-10-13 10:00:00', 'signal_value': 1.5, 'event_marker': 'AS'},
-        {'timestamp': '2024-10-13 10:01:00', 'signal_value': 2.3, 'event_marker': 'AP'},
-        {'timestamp': '2024-10-13 10:02:00', 'signal_value': 1.8, 'event_marker': 'VS'},
-        {'timestamp': '2024-10-13 10:03:00', 'signal_value': 2.0, 'event_marker': 'VP'}
+        {'timestamp': current_date , 'signal_value': 1.5, 'event_marker': 'AS'},
+        {'timestamp': current_date, 'signal_value': 2.3, 'event_marker': 'AP'},
+        {'timestamp': current_date, 'signal_value': 1.8, 'event_marker': 'VS'},
+        {'timestamp': current_date, 'signal_value': 2.0, 'event_marker': 'VP'}
     ]
-    return render_template('view_egram_data.html', egram_data=egram_data, user=current_user)
+    # Render the HTML template with the Egram data, current user, and current date/time
+    return render_template('view_egram_data.html', egram_data=egram_data, user=current_user, 
+                           current_date=current_date, current_time=current_time)
 
 @views.route('/update_status/<new_status>')
 def update_status(new_status):

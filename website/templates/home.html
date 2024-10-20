@@ -17,9 +17,9 @@
         }
 
         .header {
-            background-color: transparent; /* Make background transparent */
-            color: #990000; /* Title color */
-            padding: 20px; /* Keep padding for spacing */
+            background-color: transparent; 
+            color: #990000; 
+            padding: 20px; 
             text-align: center;
             font-family: 'Poppins', sans-serif;
         }
@@ -29,7 +29,7 @@
             font-weight: 600;
             margin: 0;
             letter-spacing: 2px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow for depth */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
         }
 
         .container {
@@ -77,18 +77,25 @@
             font-size: 18px;
         }
 
+        /* Style for the status indicator when the device is connected */
         .status-indicator.connected {
-        color: green;
+            color: green;
         }
+
+        /* Style for the status indicator when the device is out of range */
         .status-indicator.out-of-range {
             color: red;
         }
+
+        /* Style for the status indicator when there is noise detected */
         .status-indicator.noise {
             color: orange;
         }
+
+        /* Style for the status indicator when another device is detected */
         .status-indicator.another-device {
             color: blue;
-        }   
+        }
 
         .footer {
             text-align: center;
@@ -104,32 +111,36 @@
     </style>
 </head>
 <body>
+<!-- Header section containing the main title -->
+<div class="header">
+    <h1>Pacemaker Device Controller Manager</h1>
+</div>
 
-    <div class="header">
-        <h1>Pacemaker Device Controller Manager</h1>
-    </div>
+<!-- Main container for the content -->
+<div class="container">
+    <!-- Card element for displaying the welcome message and information -->
+    <div class="card">
+        <!-- Dynamic welcome message for the user -->
+        <h1>Welcome, {{ user_name if user_name else user.first_name }}!</h1>
+        <p>Monitor and manage your pacemaker device settings seamlessly.</p>
 
-    <div class="container">
-        <div class="card">
-          <h1>Welcome, {{ user_name if user_name else user.first_name }}!</h1>
-            <p>Monitor and manage your pacemaker device settings seamlessly.</p>
-
-            <div class="status-section">
-                <p>Connection Status: 
-                    <span class="status-indicator {{ pacemaker_status_class }}">
-                        {{ pacemaker_status }}
-                    </span>
-                </p>
-            </div>
+        <!-- Section for displaying the pacemaker connection status -->
+        <div class="status-section">
+            <p>Connection Status: 
+                <!-- Dynamic status indicator with a class based on pacemaker status -->
+                <span class="status-indicator {{ pacemaker_status_class }}">
+                    {{ pacemaker_status }}
+                </span>
+            </p>
         </div>
     </div>
+</div>
 
-    <div class="footer">
-        <p>&copy; 2024 Pacemaker Project | <a href="#">Privacy Policy</a></p>
-    </div>
+<!-- Footer section with copyright information and a privacy policy link -->
+<div class="footer">
+    <p>&copy; 2024 Pacemaker Project | <a href="#">Privacy Policy</a></p>
+</div>
 
-</body>
-</html>
 
 
 {% endblock %}
