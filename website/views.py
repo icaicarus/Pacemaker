@@ -65,10 +65,10 @@ def set_clock():
 def view_egram():
     # Sample temporary data for demonstration
     egram_data = [
-        {'timestamp': '2024-10-13 10:00:00', 'signal_value': 1.5, 'event_marker': 'AS'},
-        {'timestamp': '2024-10-13 10:01:00', 'signal_value': 2.3, 'event_marker': 'AP'},
-        {'timestamp': '2024-10-13 10:02:00', 'signal_value': 1.8, 'event_marker': 'VS'},
-        {'timestamp': '2024-10-13 10:03:00', 'signal_value': 2.0, 'event_marker': 'VP'}
+        {'timestamp': '2024-10-25 10:00:00', 'signal_value': 1.5, 'event_marker': 'AS'},
+        {'timestamp': '2024-10-25 10:01:00', 'signal_value': 2.3, 'event_marker': 'AP'},
+        {'timestamp': '2024-10-25 10:02:00', 'signal_value': 1.8, 'event_marker': 'VS'},
+        {'timestamp': '2024-10-25 10:03:00', 'signal_value': 2.0, 'event_marker': 'VP'}
     ]
     return render_template('view_egram_data.html', egram_data=egram_data, user=current_user)
 

@@ -94,27 +94,34 @@
       </div>
     </nav>
 
-    {% with messages = get_flashed_messages(with_categories=true) %} 
-    {% if messages %} 
-      {% for category, message in messages %} 
-        {% if category == "error" %}
-          <div class="alert alert-danger alter-dismissable fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        {% else %}
-          <div class="alert alert-success alter-dismissable fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-        {% endif %} 
-      {% endfor %} 
-    {% endif %} 
-    {% endwith %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <!-- Loop through each message and its associated category  -->
+            {% if category == "error" %}
+                <!-- If the message is categorized as an error, display it as a red Bootstrap alert  -->
+                <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <!-- Display the actual message content  -->
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <!-- Dismiss button to close the alert  -->
+                </div>
+            {% else %}
+                <!-- If the message is not an error, display it as a success (green Bootstrap alert) -->
+                <div class="alert alert-success alter-dismissable fade show" role="alert">
+                    {{ message }}
+                    <!-- Display the actual message content -->
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 
     <div class="container">{% block content %} {% endblock %}</div>
 
