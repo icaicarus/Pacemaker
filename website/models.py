@@ -7,6 +7,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, Float, DateTime, String, func
 from . import db
 
+
 class Note(db.Model):  # define a new type of object
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(10000))

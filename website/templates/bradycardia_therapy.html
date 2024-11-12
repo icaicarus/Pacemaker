@@ -162,6 +162,8 @@ block content %}
         <a class="dropdown-item" href="#" data-value="DOOR">DOOR</a>
         <a class="dropdown-item" href="#" data-value="DDIR">DDIR</a>
         <a class="dropdown-item" href="#" data-value="DDDR">DDDR</a>
+        <a class="dropdown-item" href="#" data-value="VOOR">VOOR</a>
+
       </div>
       <!-- Hidden input to hold the selected value -->
       <input type="hidden" id="therapyType" name="therapy_type" value="" />
@@ -169,30 +171,43 @@ block content %}
 
     <!-- Parameter fields, only show relevant fields based on therapy mode -->
     <div id="parameters">
-      <div
-        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"
-        class="parameter-field"
-      >
-        <label for="lrl">Lower Rate Limit (LRL):</label>
-        <input
-          type="number"
-          id="lrl"
-          name="lrl"
-          value="{{ parameter.lrl if parameter else '' }}"
-        />
+      <div id="parameters">
+        <!-- Lower Rate Limit (LRL) -->
+        <div data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR VOOR" class="parameter-field">
+          <label for="lrl">Lower Rate Limit (LRL):</label>
+          <input type="number" id="lrl" name="lrl" min="30" max="175" step="5" value="30" />
+        </div>
       </div>
+      
+      <script>
+        // JavaScript to adjust step and range based on value
+        const lrlInput = document.getElementById('lrl');
+      
+        lrlInput.addEventListener('input', function () {
+          const value = parseInt(lrlInput.value, 10);
+      
+          if (value < 50) {
+            lrlInput.step = 5;
+            lrlInput.min = 30;
+            lrlInput.max = 50;
+          } else if (value < 90) {
+            lrlInput.step = 1;
+            lrlInput.min = 50;
+            lrlInput.max = 90;
+          } else {
+            lrlInput.step = 5;
+            lrlInput.min = 90;
+            lrlInput.max = 175;
+          }
+        });
+      </script>      
 
       <div
-        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"
+        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR VOOR"
         class="parameter-field"
       >
         <label for="url">Upper Rate Limit (URL):</label>
-        <input
-          type="number"
-          id="url"
-          name="url"
-          value="{{ parameter.url if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="50" max="175" step="5" value="50" />
       </div>
 
       <div
@@ -200,12 +215,7 @@ block content %}
         class="parameter-field"
       >
         <label for="max_sensor_rate">Max Sensor Rate:</label>
-        <input
-          type="number"
-          id="max_sensor_rate"
-          name="max_sensor_rate"
-          value="{{ parameter.max_sensor_rate if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="50" max="175" step="5" value="50" />
       </div>
 
       <div
@@ -213,234 +223,255 @@ block content %}
         class="parameter-field"
       >
         <label for="fixed_av_delay">Fixed AV Delay:</label>
-        <input
-          type="number"
-          id="fixed_av_delay"
-          name="fixed_av_delay"
-          value="{{ parameter.fixed_av_delay if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="70" max="300" step="10" value="70" />
       </div>
 
       <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
         <label for="dynamic_av_delay">Dynamic AV Delay:</label>
-        <input
-          type="number"
-          id="dynamic_av_delay"
-          name="dynamic_av_delay"
-          value="{{ parameter.dynamic_av_delay if parameter else '' }}"
-        />
+        <select id="dynamic_av_delay_toggle" name="dynamic_av_delay_toggle">
+          <option value="Off">Off</option>
+          <option value="On">On</option>
+        </select>
       </div>
 
-      <div data-therapy="" class="parameter-field">
-        <div data-therapy="DDD DDDR" class="parameter-field"></div>
+    <!-- <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field"> -->
+        <label for="dynamic_av_delay">Minimum Dynamic AV Delay:</label>
+        <input type="number" id="lrl" name="lrl" min="30" max="100" step="10" value="30" />
+      </div>
+
+      <div data-therapy="DDD DDDR" class="parameter-field">
         <label for="sensed_av_delay_offset">Sensed AV Delay Offset:</label>
-        <input
-          type="number"
-          id="sensed_av_delay_offset"
-          name="sensed_av_delay_offset"
-          value="{{ parameter.sensed_av_delay_offset if parameter else '' }}"
-        />
+        <div id="sensed_av_delay_offset_container">
+            <select id="sensed_av_delay_toggle" name="sensed_av_delay_toggle" onchange="toggleInput(this, 'sensed_av_delay_value')">
+                <option value="Off">Off</option>
+                <option value="On">Set Value</option>
+            </select>
+            
+            <input type="number" id="sensed_av_delay_value" name="sensed_av_delay_value" min="-100" max="-10" step="10" value="-10" style="display:none;" />
+        </div>
+      <script>
+        function toggleInput(selectElement, inputId) {
+            const input = document.getElementById(inputId);
+            if (selectElement.value === 'On') {
+                input.style.display = 'inline';
+            } else {
+                input.style.display = 'none';
+            }
+        }
+    </script>  
+    
+        <div data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR" class="parameter-field">
+          <label for="atrial_pulse_amp">Atrial Pulse Amplitude:</label>
+          <div id="atrial_pulse_amp_container">
+              <select id="atrial_pulse_amp_toggle" name="atrial_pulse_amp_toggle" onchange="toggleInput(this, 'atrial_pulse_amp_value')">
+                  <option value="Off">Off</option>
+                  <option value="On">Set Value</option>
+              </select>
+          
+              <input type="number" id="atrial_pulse_amp_value" name="atrial_pulse_amp_value" min="0.1" max="5.0" step="0.1" value="0.1" style="display:none;" />
+          </div>
       </div>
 
-      <div
-        data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR"
-        class="parameter-field"
-      >
-        <label for="atrial_amp">Atrial Amplitude:</label>
-        <input
-          type="number"
-          id="atrial_amp"
-          name="atrial_amp"
-          value="{{ parameter.atrial_amp if parameter else '' }}"
-        />
+      <div data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
+          <label for="ventricular_amp">Ventricular Amplitude:</label>
+          <div id="ventricular_amp_container">
+              <select id="ventricular_amp_toggle" name="ventricular_amp_toggle" onchange="toggleInput(this, 'ventricular_amp_value')">
+                  <option value="Off">Off</option>
+                  <option value="On">Set Value</option>
+              </select>
+          
+              <input type="number" id="ventricular_amp_value" name="ventricular_amp_value" min="0.1" max="5.0" step="0.1" value="0.1" style="display:none;" /> 
+          </div>
       </div>
 
-      <div
-        data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR"
-        class="parameter-field"
-      >
-        <label for="ventricular_amp">Ventricular Amplitude:</label>
-        <input
-          type="number"
-          id="ventricular_amp"
-          name="ventricular_amp"
-          value="{{ parameter.ventricular_amp if parameter else '' }}"
-        />
-      </div>
+      <script>
+          function toggleInput(selectElement, inputId) {
+              const input = document.getElementById(inputId);
+              if (selectElement.value === 'On') {
+                  input.style.display = 'inline';
+              } else {
+                  input.style.display = 'none';
+              }
+          }
+      </script>
 
       <div
         data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR"
         class="parameter-field"
       >
         <label for="atrial_pulse_width">Atrial Pulse Width:</label>
-        <input
-          type="number"
-          id="atrial_pulse_width"
-          name="atrial_pulse_width"
-          value="{{ parameter.atrial_pulse_width if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="1" max="30" step="1" value="1" />
       </div>
 
       <div data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
         <label for="ventricular_pulse_width">Ventricular Pulse Width:</label>
-        <input
-          type="number"
-          id="ventricular_pulse_width"
-          name="ventricular_pulse_width"
-          value="{{ parameter.ventricular_pulse_width if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="1" max="30" step="1" value="1" />
       </div>
 
       <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
         <label for="atrial_sensitivity">Atrial Sensitivity:</label>
-        <input
-          type="number"
-          id="atrial_sensitivity"
-          name="atrial_sensitivity"
-          value="{{ parameter.atrial_sensitivity if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="0" max="5" step="0.1" value="0" />
       </div>
 
       <div data-therapy="VVT VVI VDD DDI DDD VVIR VDDR DDIR DDDR" class="parameter-field">
         <label for="ventricular_sensitivity">Ventricular Sensitivity:</label>
-        <input
-          type="number"
-          id="ventricular_sensitivity"
-          name="ventricular_sensitivity"
-          value="{{ parameter.ventricular_sensitivity if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="0" max="5" step="0.1" value="0" />
       </div>
 
       <div data-therapy="VVT VVI VDD DDI DDD VVIR VDDR DDIR DDDR" class="parameter-field">
         <label for="vrp">Ventricular Refractory Period (VRP):</label>
-        <input
-          type="number"
-          id="vrp"
-          name="vrp"
-          value="{{ parameter.vrp if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="150" max="500" step="10" value="150" />
       </div>
 
       <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
         <label for="arp">Atrial Refractory Period (ARP):</label>
-        <input
-          type="number"
-          id="arp"
-          name="arp"
-          value="{{ parameter.arp if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="150" max="500" step="10" value="150" />
       </div>
 
       <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
         <label for="pvarp"
           >Post Ventricular Atrial Refractory Period (PVARP):</label
         >
-        <input
-          type="number"
-          id="pvarp"
-          name="pvarp"
-          value="{{ parameter.pvarp if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="150" max="500" step="10" value="150" />
       </div>
 
       <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
         <label for="pvarp_ext">PVARP Extension:</label>
-        <input
-          type="number"
-          id="pvarp_ext"
-          name="pvarp_ext"
-          value="{{ parameter.pvarp_ext if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="150" max="500" step="10" value="150" />
       </div>
 
-      <div data-therapy="AAI VII DDD AAIR VVIR DDDR" class="parameter-field">
-        <label for="hysteresis">Hysteresis:</label>
-        <input
-          type="number"
-          id="hysteresis"
-          name="hysteresis"
-          value="{{ parameter.hysteresis if parameter else '' }}"
-        />
-      </div>
-
+      <div data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR VOOR" class="parameter-field">
+        <label for="hysteresis_rate_limit">Hysteresis Rate Limit:</label>
+        <select id="hysteresis_rate_limit_toggle" name="hysteresis_rate_limit_toggle" onchange="toggleHysteresisInput(this)">
+            <option value="Off">Off</option>
+            <option value="On">Set Value</option>
+        </select>
+        
+        <input type="number" id="hysteresis_rate_limit_value" name="hysteresis_rate_limit_value" min="30" max="175" step="5" value="30" style="display:none;" />
+    </div>
+    
+    <script>
+        // Function to toggle the display of the Hysteresis Rate Limit input field
+        function toggleHysteresisInput(selectElement) {
+            const hysteresisInput = document.getElementById('hysteresis_rate_limit_value');
+            if (selectElement.value === 'On') {
+                hysteresisInput.style.display = 'inline';
+            } else {
+                hysteresisInput.style.display = 'none';
+            }
+        }
+    
+        // Function to adjust Hysteresis Rate Limit input range and step independently
+        const hysteresisInput = document.getElementById('hysteresis_rate_limit_value');
+        hysteresisInput.addEventListener('input', function () {
+            adjustHysteresisRange(hysteresisInput);
+        });
+    
+        function adjustHysteresisRange(inputElement) {
+            const value = parseInt(inputElement.value, 10);
+    
+            if (value < 50) {
+                inputElement.step = 5;
+                inputElement.min = 30;
+                inputElement.max = 50;
+            } else if (value < 90) {
+                inputElement.step = 1;
+                inputElement.min = 50;
+                inputElement.max = 90;
+            } else {
+                inputElement.step = 5;
+                inputElement.min = 90;
+                inputElement.max = 175;
+            }
+        }
+    </script>
+  
       <div data-therapy="AAI VVI VDD DDD AAIR VVIR VDDR DDDR" class="parameter-field">
         <label for="rate_smoothing">Rate Smoothing:</label>
-        <input
-          type="number"
-          id="rate_smoothing"
-          name="rate_smoothing"
-          value="{{ parameter.rate_smoothing if parameter else '' }}"
-        />
+        <select id="rate_smoothing" name="rate_smoothing">
+          <option value="Off">Off</option>
+          <option value="3">3%</option>
+          <option value="6">6%</option>
+          <option value="9">9%</option>
+          <option value="12">12%</option>
+          <option value="15">15%</option>
+          <option value="18">18%</option>
+          <option value="21">21%</option>
+          <option value="25">25%</option>
+      </select>
       </div>
 
-      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
-        <label for="atr_duration">ATR Duration:</label>
-        <input
-          type="number"
-          id="atr_duration"
-          name="atr_duration"
-          value="{{ parameter.atr_duration if parameter else '' }}"
-        />
-      </div>
+       <!--ATR MODE - NEW PARAMETER-->
+        <label for="atr_duration">ATR Mode:</label>
+        <select id="atr_duration_toggle" name="atr_duration_toggle">
+          <option value="Off">Off</option>
+          <option value="On">On</option>
+        </select>
+  
 
       <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
-        <label for="atr_fallback_mode">ATR Fallback Mode:</label>
-        <input
-          type="number"
-          id="atr_fallback_mode"
-          name="atr_fallback_mode"
-          value="{{ parameter.atr_fallback_mode if parameter else '' }}"
-        />
+          <label for="atr_duration">ATR Duration (Cardiac Cycles):</label>
+          <input type="number" id="atr_duration" name="atr_duration" min="10" max="2000" step="1" value="10" />
       </div>
+      
+      <script>
+          // JavaScript to adjust ATR Duration range and step based on value
+          const atrDurationInput = document.getElementById('atr_duration');
+      
+          atrDurationInput.addEventListener('input', function () {
+              adjustATRRanges();
+          });
+      
+          function adjustATRRanges() {
+              const value = parseInt(atrDurationInput.value, 10);
+      
+              if (value < 20) {
+                  atrDurationInput.min = 10;
+                  atrDurationInput.max = 20;
+                  atrDurationInput.step = 10;
+              } else if (value < 80) {
+                  atrDurationInput.min = 20;
+                  atrDurationInput.max = 80;
+                  atrDurationInput.step = 20;
+              } else {
+                  atrDurationInput.min = 100;
+                  atrDurationInput.max = 2000;
+                  atrDurationInput.step = 100;
+              }
+          }
+      </script>      
 
       <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
         <label for="atr_fallback_time">ATR Fallback Time:</label>
-        <input
-          type="number"
-          id="atr_fallback_time"
-          name="atr_fallback_time"
-          value="{{ parameter.atr_fallback_time if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="1" max="5" step="1" value="1" />
       </div>
 
       <div data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
-        <label for="activity_threshold">Activity Threshold:</label>
-        <input
-          type="number"
-          id="activity_threshold"
-          name="activity_threshold"
-          value="{{ parameter.activity_threshold if parameter else '' }}"
-        />
+          <label for="activity_threshold">Activity Threshold:</label>
+          <select id="activity_threshold" name="activity_threshold">
+              <option value="V-Low">V-Low</option>
+              <option value="Low">Low</option>
+              <option value="Med-Low">Med-Low</option>
+              <option value="Med">Med</option>
+              <option value="Med-High">Med-High</option>
+              <option value="High">High</option>
+              <option value="V-High">V-High</option>
+          </select>
       </div>
 
       <div data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
         <label for="reaction_time">Reaction Time:</label>
-        <input
-          type="number"
-          id="reaction_time"
-          name="reaction_time"
-          value="{{ parameter.reaction_time if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="10" max="50" step="10" value="10" />
       </div>
 
       <div data-therapy= "AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"class="parameter-field">
         <label for="response_factor">Response Factor:</label>
-        <input
-          type="number"
-          id="response_factor"
-          name="response_factor"
-          value="{{ parameter.response_factor if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="1" max="16" step="1" value="1" />
       </div>
 
       <div data-therapy="AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
         <label for="recovery_time">Recovery Time:</label>
-        <input
-          type="number"
-          id="recovery_time"
-          name="recovery_time"
-          value="{{ parameter.recovery_time if parameter else '' }}"
-        />
+        <input type="number" id="lrl" name="lrl" min="2" max="16" step="1" value="1" />
       </div>
     </div>
     <br></br>
