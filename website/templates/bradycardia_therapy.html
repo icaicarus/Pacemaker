@@ -173,7 +173,7 @@ block content %}
     <div id="parameters">
       <div id="parameters">
         <!-- Lower Rate Limit (LRL) -->
-        <div data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR VOOR" class="parameter-field">
+        <div data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
           <label for="lrl">Lower Rate Limit (LRL):</label>
           <input type="number" id="lrl" name="lrl" min="30" max="175" step="5" value="30" />
         </div>
@@ -203,7 +203,7 @@ block content %}
       </script>      
 
       <div
-        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR VOOR"
+        data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR"
         class="parameter-field"
       >
         <label for="url">Upper Rate Limit (URL):</label>
@@ -234,7 +234,7 @@ block content %}
         </select>
       </div>
 
-    <!-- <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field"> -->
+      <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
         <label for="dynamic_av_delay">Minimum Dynamic AV Delay:</label>
         <input type="number" id="lrl" name="lrl" min="30" max="100" step="10" value="30" />
       </div>
@@ -260,40 +260,76 @@ block content %}
         }
     </script>  
     
-        <div data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR" class="parameter-field">
-          <label for="atrial_pulse_amp">Atrial Pulse Amplitude:</label>
-          <div id="atrial_pulse_amp_container">
-              <select id="atrial_pulse_amp_toggle" name="atrial_pulse_amp_toggle" onchange="toggleInput(this, 'atrial_pulse_amp_value')">
-                  <option value="Off">Off</option>
-                  <option value="On">Set Value</option>
-              </select>
-          
-              <input type="number" id="atrial_pulse_amp_value" name="atrial_pulse_amp_value" min="0.1" max="5.0" step="0.1" value="0.1" style="display:none;" />
-          </div>
+    <div data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR" class="parameter-field">
+      <label for="atrial_pulse_amp">Atrial Pulse Amplitude:</label>
+      <div id="atrial_pulse_amp_container">
+          <select id="atrial_pulse_amp_toggle" name="atrial_pulse_amp_toggle" onchange="toggleAtrialInput(this)">
+              <option value="regulated_off">Off</option>
+              <option value="regulated_set">Regulated - Set Value</option>
+              <option value="unregulated_set">Unregulated - Set Value</option>
+          </select>
+  
+          <!-- Number input for regulated set value (0.1 - 5V with step of 0.1V) -->
+          <input type="number" id="atrial_pulse_amp_value" name="atrial_pulse_amp_value" min="0.1" max="5" step="0.1" value="0.1" style="display:none;" />
+  
+          <!-- Number input for unregulated set value (1.25 - 5 with step of 1.25) -->
+          <input type="number" id="unregulated_value" name="atrial_pulse_amp_value" min="1.25" max="5" step="1.25" value="1.25" style="display:none;" />
       </div>
-
-      <div data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
-          <label for="ventricular_amp">Ventricular Amplitude:</label>
-          <div id="ventricular_amp_container">
-              <select id="ventricular_amp_toggle" name="ventricular_amp_toggle" onchange="toggleInput(this, 'ventricular_amp_value')">
-                  <option value="Off">Off</option>
-                  <option value="On">Set Value</option>
-              </select>
-          
-              <input type="number" id="ventricular_amp_value" name="ventricular_amp_value" min="0.1" max="5.0" step="0.1" value="0.1" style="display:none;" /> 
-          </div>
-      </div>
-
-      <script>
-          function toggleInput(selectElement, inputId) {
-              const input = document.getElementById(inputId);
-              if (selectElement.value === 'On') {
-                  input.style.display = 'inline';
-              } else {
-                  input.style.display = 'none';
-              }
+  </div>
+  
+  <script>
+      function toggleAtrialInput(selectElement) {
+          const regulatedInput = document.getElementById('atrial_pulse_amp_value');
+          const unregulatedInput = document.getElementById('unregulated_value');
+  
+          if (selectElement.value === 'regulated_set') {
+              regulatedInput.style.display = 'inline';
+              unregulatedInput.style.display = 'none';
+          } else if (selectElement.value === 'unregulated_set') {
+              regulatedInput.style.display = 'none';
+              unregulatedInput.style.display = 'inline';
+          } else {
+              regulatedInput.style.display = 'none';
+              unregulatedInput.style.display = 'none';
           }
-      </script>
+      }
+  </script>
+  
+  
+  <div data-therapy="VVT VOO VVI VDD DOO DDI DDD VOOR VVIR VDDR DOOR DDIR DDDR" class="parameter-field">
+    <label for="ventricular_amp">Ventricular Amplitude:</label>
+    <div id="ventricular_amp_container">
+        <select id="ventricular_amp_toggle" name="ventricular_amp_toggle" onchange="toggleInput(this)">
+            <option value="regulated_off">Off</option>
+            <option value="regulated_set">Regulated - Set Value</option>
+            <option value="unregulated_set">Unregulated - Set Value</option>
+        </select>
+
+        <!-- Number input for regulated set value (0.1 - 5V with step of 0.1V) -->
+        <input type="number" id="ventricular_amp_value" name="ventricular_amp_value" min="0.1" max="5" step="0.1" value="0.1" style="display:none;" />
+
+        <!-- Number input for unregulated set value (1.25 - 5 with step of 1.25) -->
+        <input type="number" id="ventricular_unregulated_value" name="ventricular_amp_value" min="1.25" max="5" step="1.25" value="1.25" style="display:none;" />
+    </div>
+</div>
+
+<script>
+    function toggleInput(selectElement) {
+        const regulatedInput = document.getElementById('ventricular_amp_value');
+        const unregulatedInput = document.getElementById('ventricular_unregulated_value');
+
+        if (selectElement.value === 'regulated_set') {
+            regulatedInput.style.display = 'inline';
+            unregulatedInput.style.display = 'none';
+        } else if (selectElement.value === 'unregulated_set') {
+            regulatedInput.style.display = 'none';
+            unregulatedInput.style.display = 'inline';
+        } else {
+            regulatedInput.style.display = 'none';
+            unregulatedInput.style.display = 'none';
+        }
+    }
+</script>
 
       <div
         data-therapy="AAT AOO AAI DOO DDI DDD AOOR AAIR DOOR DDIR DDDR"
@@ -329,17 +365,33 @@ block content %}
       </div>
 
       <div data-therapy="AAT AAI DDI DDD AAIR DDIR DDDR" class="parameter-field">
-        <label for="pvarp"
-          >Post Ventricular Atrial Refractory Period (PVARP):</label
-        >
+        <label for="pvarp">Post Ventricular Atrial Refractory Period (PVARP):</label>
         <input type="number" id="lrl" name="lrl" min="150" max="500" step="10" value="150" />
       </div>
-
       <div data-therapy="VDD DDD VDDR DDDR" class="parameter-field">
         <label for="pvarp_ext">PVARP Extension:</label>
-        <input type="number" id="lrl" name="lrl" min="150" max="500" step="10" value="150" />
-      </div>
-
+        <select id="pvarp_extension_toggle" name="pvarp_extension_toggle" onchange="togglePVARPExtension(this)">
+            <option value="Off">Off</option>
+            <option value="On">Set Value</option>
+        </select>
+    
+        <!-- Range input for Set Value option, initially hidden -->
+        <input type="number" id="pvarp_extension_value" name="pvarp_extension_value" min="150" max="500" step="10" value="150" style="display:none;" />
+    </div>
+    
+    <script>
+        // Function to toggle the display of the PVARP Extension input field
+        function togglePVARPExtension(selectElement) {
+            const pvarpInput = document.getElementById('pvarp_extension_value');
+            
+            if (selectElement.value === 'On') {
+                pvarpInput.style.display = 'inline';
+            } else {
+                pvarpInput.style.display = 'none';
+            }
+        }
+    </script>
+    
       <div data-therapy="AAT VVT AOO AAI VOO VVI VDD DOO DDI DDD AOOR AAIR VOOR VVIR VDDR DOOR DDIR DDDR VOOR" class="parameter-field">
         <label for="hysteresis_rate_limit">Hysteresis Rate Limit:</label>
         <select id="hysteresis_rate_limit_toggle" name="hysteresis_rate_limit_toggle" onchange="toggleHysteresisInput(this)">
